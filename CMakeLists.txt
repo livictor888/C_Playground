@@ -13,3 +13,4 @@ add_executable(sept20_print_string_backwards ./comp2510/sept20_print_string_back
 
 
 add_executable(testFile "comp2510/Week 3 Sept 27 Youtube.c")
+add_executable(string_backwards "./comp2510/Week 3 reverse string recursive.c")
