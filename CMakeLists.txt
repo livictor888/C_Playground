@@ -9,7 +9,7 @@ add_executable(lab1 comp2510/Lab_Week_2.c)
 add_executable(lab3 comp2510/Lab_Week_3.c)
 
 add_executable(check_valid_password comp2510/Week_2_sept20_check_valid_password.c)
-add_executable(get_first_nonrepeated_characte comp2510/Week_2_sept20_get_first_nonrepeated_character.c)
+add_executable(get_first_nonrepeated_character comp2510/Week_2_sept20_get_first_nonrepeated_character.c)
 add_executable(print_string_backwards comp2510/Week_2_sept20_print_string_backwards.c)
 add_executable(Week_3_Youtube "comp2510/Week_3_Sept 27_Youtube.c")
 add_executable(GCD "comp2510/Week_3_GCD.c")
