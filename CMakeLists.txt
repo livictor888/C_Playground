@@ -4,9 +4,11 @@ project(C_Playground C)
 set(CMAKE_C_STANDARD 99)
 
 add_executable(C_Playground main.c)
+add_executable(A1 comp2510/Assignment_1.c)
 
 add_executable(lab1 comp2510/Lab_Week_2.c)
 add_executable(lab3 comp2510/Lab_Week_3.c)
+add_executable(lab4 comp2510/Lab_Week_4.c)
 
 add_executable(check_valid_password comp2510/Week_2_sept20_check_valid_password.c)
 add_executable(get_first_nonrepeated_character comp2510/Week_2_sept20_get_first_nonrepeated_character.c)
