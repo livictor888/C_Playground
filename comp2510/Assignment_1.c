@@ -43,7 +43,6 @@ int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH
             lineCapacityRemaining -= (getCurrentTokenSize(tokens[currentWordIndex]) + 1);
             numberOfWordsForNextLine++;
         } else {
-            // numberOfWordsProcessedSoFar += numberOfWordsForNextLine;
             return numberOfWordsForNextLine;
         }
     }
@@ -82,48 +81,22 @@ void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]
     } else {
         numberOfWordsThatNeedSpaces = numberOfWordsForNextLine - 1;
     }
-    int numberOfSpacesBetweenWords = numberOfSpacesRequired / (numberOfWordsThatNeedSpaces);   // last word doesn't need a space
+    int numberOfSpacesBetweenWords = numberOfSpacesRequired / (numberOfWordsThatNeedSpaces);
     int leftOverSpaces = numberOfSpacesRequired % (numberOfWordsThatNeedSpaces);
-
     printWordAndSpaces(tokens, numberOfWordsProcessed, numberOfWordsForNextLine, numberOfSpacesBetweenWords, leftOverSpaces);
-
-//    for (int tokenIndex = numberOfWordsProcessed; tokenIndex < numberOfWordsProcessed + numberOfWordsForNextLine ; tokenIndex++) {
-//        printf("%s", tokens[tokenIndex]);
-//        for (int space = 0; space < numberOfSpacesBetweenWords; space ++) {
-//            printf(" ");
-//        }
-//        if (leftOverSpaces > 0) {
-//            printf(" ");
-//            leftOverSpaces --;
-//        }
-//    }
 }
 
 void formatAndPrintParagraph(char *paragraph, int lineLength) {
     char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH];
     int totalNumberOfWords = tokenize(paragraph, tokens);
     int numberOfWordsProcessed = 0;
-    //int numberOfWordsForNextLine;
-
     while (numberOfWordsProcessed < totalNumberOfWords) {
         int numberOfWordsForNextLine = getNumberOfWordsForNextLine(tokens, numberOfWordsProcessed, totalNumberOfWords, lineLength);
-
-        //printf("%d\n", numberOfWordsProcessed);
         formatAndPrintCurrentLine(tokens, numberOfWordsProcessed, numberOfWordsForNextLine, lineLength);
         numberOfWordsProcessed += numberOfWordsForNextLine;
         printf("\n");
     }
 }
-
-//int main(){
-//    char *paragraph = "  Hi everyone. This is the 2nd assignment. Please make sure you start early "
-//                          "as this is going to take some time!  ";
-//    int lineLength = 15;
-//    formatAndPrintParagraph(paragraph, lineLength);
-//
-//    return 0;
-//}
-
 
 int main() {
     char paragraph[] = "         Hi everyone. This is          the 2nd assignment. Please make sure you start early as this is going to take some time!     ";
