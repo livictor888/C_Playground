@@ -4,15 +4,15 @@
 #define MAX_WORD_LENGTH 20
 #define MAX_NUMBER_OF_WORDS 100
 
-char moveToBeginningOfNextToken(char *inputString) {
-    for (int index = 0; index < strlen(inputString); index ++) {
-        if (*inputString != ' ') {
-            return 0;
-        } else {
-            inputString++;
-        }
-    }
-}
+//char moveToBeginningOfNextToken(char *inputString) {
+//    for (int index = 0; index < strlen(inputString); index ++) {
+//        if (*inputString != ' ') {
+//            return 0;
+//        } else {
+//            inputString++;
+//        }
+//    }
+//}
 
 int getCurrentTokenSize(char *inputString) {
     int tokenSize = 0;
@@ -23,6 +23,7 @@ int getCurrentTokenSize(char *inputString) {
             return tokenSize;
         }
     }
+    return tokenSize;
 }
 
 int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]) {
@@ -37,9 +38,13 @@ int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH])
         } else if (*tokens[currentTokenIndex] != 0) {
             currentTokenIndex++;
         }
-    } return currentTokenIndex + 1;
-};
-
+    }
+    return (*tokens[currentTokenIndex] == 0)? currentTokenIndex: currentTokenIndex + 1;
+//    if (*tokens[currentTokenIndex] == 0) {
+//        return currentTokenIndex;
+//    }
+//    return currentTokenIndex + 1;
+}
 
 int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH],
                                 int numberOfWordsProcessedSoFar,
@@ -59,34 +64,87 @@ int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH
     return numberOfWordsForNextLine;
 }
 
-int getNumberOfTokens(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]) {
-    int numberOfWords = 0;
-    for (int index = 0; index < MAX_NUMBER_OF_WORDS; index++) {
-        if (*tokens[index] != 0) {
-            numberOfWords++;
-        }
+//int getNumberOfTokens(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]) {
+//    int numberOfWords = 0;
+//    for (int index = 0; index < MAX_NUMBER_OF_WORDS; index++) {
+//        if (*tokens[index] != 0) {
+//            numberOfWords++;
+//        }
+//    }
+//    return numberOfWords;
+//};
+
+void printWordAndSpaces(char *word, int numberOfSpaces) {
+    printf("%s", word);
+    for (int spaceNumber = 0; spaceNumber < numberOfSpaces; spaceNumber++) {
+        printf(" ");
     }
-    return numberOfWords;
-};
+}
+
+void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH],
+                               int numberOfWordsProcessed,
+                               int numberOfWordsForNextLine,
+                               int lineLength) {
+    int numberOfCharactersWithoutSpaces = 0;
+    for (int i = numberOfWordsProcessed; i < numberOfWordsProcessed + numberOfWordsForNextLine; i++) {
+        numberOfCharactersWithoutSpaces += (int)strlen(tokens[i]);
+    }
+    int numberOfSpacesRequired = lineLength - numberOfCharactersWithoutSpaces;
+    int numberOfSpacesBetweenWords = numberOfSpacesRequired / (numberOfWordsForNextLine - 1);   // last word doesn't need a space
+    int leftOverSpaces = numberOfSpacesRequired % (numberOfWordsForNextLine - 1);
 
 
-int main(){
-    char *moveToBeginningOfNextTokenTestString = "   hi   there";
-    moveToBeginningOfNextToken(moveToBeginningOfNextTokenTestString);
-    getCurrentTokenSize(moveToBeginningOfNextTokenTestString);
+    //printWordAndSpaces(word, numberOfSpaces);
+    int lastWordOnThisLineIndex = numberOfWordsProcessed + numberOfWordsForNextLine;
 
-    char *testParagraph = "Hi everyone. This is the 2nd assignment. Please make sure you start early "
-                          "as this is going to take some time!";
+
+    for (int tokenIndex = numberOfWordsProcessed; tokenIndex < numberOfWordsProcessed + numberOfWordsForNextLine ; tokenIndex++) {
+        printf("%s", tokens[tokenIndex]);
+        for (int space = 0; space < numberOfSpacesBetweenWords; space ++) {
+            printf(" ");
+        }
+        if (leftOverSpaces > 0) {
+            printf(" ");
+            leftOverSpaces --;
+        }
+
+    }
+}
+
+void formatAndPrintParagraph(char *paragraph, int lineLength) {
     char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH];
-
-    int totalNumberOfWords = tokenize(testParagraph, tokens);
+    int totalNumberOfWords = tokenize(paragraph, tokens);
     int numberOfWordsProcessed = 0;
-
+    //int numberOfWordsForNextLine;
 
     while (numberOfWordsProcessed < totalNumberOfWords) {
-        numberOfWordsProcessed += getNumberOfWordsForNextLine(tokens, numberOfWordsProcessed, totalNumberOfWords, 20);
-        printf("%d\n", numberOfWordsProcessed);
+        int numberOfWordsForNextLine = getNumberOfWordsForNextLine(tokens, numberOfWordsProcessed, totalNumberOfWords, lineLength);
+
+        //printf("%d\n", numberOfWordsProcessed);
+        formatAndPrintCurrentLine(tokens, numberOfWordsProcessed, numberOfWordsForNextLine, lineLength);
+        numberOfWordsProcessed += numberOfWordsForNextLine;
+        printf("\n");
 
     }
+}
+
+int main(){
+//    char *moveToBeginningOfNextTokenTestString = "   hi   there";
+//    moveToBeginningOfNextToken(moveToBeginningOfNextTokenTestString);
+//    getCurrentTokenSize(moveToBeginningOfNextTokenTestString);
+
+    char *paragraph = "Hi everyone. This is the 2nd assignment. Please make sure you start early "
+                          "as this is going to take some time!";
+    int lineLength = 40;
+    formatAndPrintParagraph(paragraph, lineLength);
+//    char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH];
+//    int totalNumberOfWords = tokenize(paragraph, tokens);
+//    int numberOfWordsProcessed = 0;
+
+//    while (numberOfWordsProcessed < totalNumberOfWords) {
+//        numberOfWordsProcessed += getNumberOfWordsForNextLine(tokens, numberOfWordsProcessed, totalNumberOfWords, 20);
+//        printf("%d\n", numberOfWordsProcessed);
+//
+//    }
     return 0;
 }
