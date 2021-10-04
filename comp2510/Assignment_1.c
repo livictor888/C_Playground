@@ -4,11 +4,12 @@
 
 #define MAX_WORD_LENGTH 20
 #define MAX_NUMBER_OF_WORDS 100
+#define SPACE_CHAR ' '
 
 int getCurrentTokenSize(char *inputString) {
     int tokenSize = 0;
     for (int index = 0; index < strlen(inputString); index++ ) {
-        if (*(inputString + index) != ' ') {
+        if (*(inputString + index) != SPACE_CHAR) {
             tokenSize++;
         } else {
             return tokenSize;
@@ -23,7 +24,7 @@ int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH])
     }
     int currentTokenIndex = 0;
     for (int charIndex = 0; charIndex < strlen(paragraph); charIndex++) {
-        if (*(paragraph + charIndex) != ' ') {
+        if (*(paragraph + charIndex) != SPACE_CHAR) {
             strncat(tokens[currentTokenIndex], paragraph + charIndex, 1);
         } else if (*tokens[currentTokenIndex] != 0) {
             currentTokenIndex++;
@@ -57,10 +58,10 @@ void printWordAndSpaces(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH],
     for (int tokenIndex = numberOfWordsProcessed; tokenIndex < numberOfWordsProcessed + numberOfWordsForNextLine ; tokenIndex++) {
         printf("%s", tokens[tokenIndex]);
         for (int space = 0; space < numberOfSpacesBetweenWords; space ++) {
-            printf(" ");
+            printf("%c", SPACE_CHAR);
         }
         if (leftOverSpaces > 0) {
-            printf(" ");
+            printf("%c", SPACE_CHAR);
             leftOverSpaces --;
         }
     }

@@ -9,7 +9,6 @@ int getOddPositionedDigits(int input) {
     if (input < 10 && input > -10) {
         return input;
     }
-
     return (input % 10) + getOddPositionedDigits(input / 100) * 10;
 }
 

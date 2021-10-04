@@ -14,5 +14,5 @@ int gcd(int first, int second) {
  int main() {
 
 
-    gcd(1, 100);
+    gcd(27, 36);
 }
