@@ -1,6 +1,6 @@
 #include "stdio.h"
 
-#define LOWER_TO_UPPER_DIFFERENCE 32
+#define UPPER_TO_LOWER_ASCII_DIFFERENCE 32
 
 int countUpperCase(char *input, char *output) {
     int count = 0;
