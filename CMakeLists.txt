@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(C_Playground main.c)
 add_executable(A1 comp2510/Assignment_1.c)
+add_executable(A2 comp2510/Assignment_2.c)
 
 add_executable(lab1 comp2510/Lab_Week_2.c)
 add_executable(lab3 comp2510/Lab_Week_3.c)
