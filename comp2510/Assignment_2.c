@@ -1,3 +1,8 @@
+// start with string
+// while keeping track of line length and character position
+// if it equals the first char, start the counting
+// if nth character doesn't match, reset the counting
+
 #include <stdio.h>
 
 #define ERROR_FILE_NOT_FOUND 1
