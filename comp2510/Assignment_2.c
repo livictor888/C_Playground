@@ -17,27 +17,23 @@ void searchForToken(FILE *file, char *searchToken) {
             currentChar = (char) fgetc(file);
         } else if (currentChar == *searchToken) {               // case 2: match the first character of the searchToken
             char *remainingCharactersInSearchToken = searchToken;
-
             numberOfCharactersMatched = 0;
             while (currentChar == *remainingCharactersInSearchToken) {
                 remainingCharactersInSearchToken++;
                 currentChar = (char) fgetc(file);
-                numberOfCharactersMatched ++;
-
+                numberOfCharactersMatched++;
                 if (*remainingCharactersInSearchToken == '\0') {
                     printf("Line: %d, character: %d\n", lineNumber, charNumber);
                     return;
                 }
             }
-
-
             charNumber += numberOfCharactersMatched;
         } else {                                                // case 3 : character doesn't match
             currentChar = (char) fgetc(file);
             charNumber++;
         }
     }
-    printf("Character not found.\n");
+    printf("Not found!\n");
 }
 
 bool processFile(char *fileName, char *searchToken) {
