@@ -8,6 +8,7 @@
 void searchForToken(FILE *file, char *searchToken) {
     int lineNumber = 1;
     int charNumber = 1;
+    int numberOfCharactersMatched;
     char currentChar = (char) fgetc(file);
     while (currentChar != EOF) {
         if (currentChar == '\n') {                              // case 1: encounter a new line
@@ -15,16 +16,22 @@ void searchForToken(FILE *file, char *searchToken) {
             charNumber = 1;
             currentChar = (char) fgetc(file);
         } else if (currentChar == *searchToken) {               // case 2: match the first character of the searchToken
-            char *pointer = searchToken;
-            while (currentChar == *pointer) {
-                pointer++;
+            char *remainingCharactersInSearchToken = searchToken;
+
+            numberOfCharactersMatched = 0;
+            while (currentChar == *remainingCharactersInSearchToken) {
+                remainingCharactersInSearchToken++;
                 currentChar = (char) fgetc(file);
-                if (*pointer == '\0') {
+                numberOfCharactersMatched ++;
+
+                if (*remainingCharactersInSearchToken == '\0') {
                     printf("Line: %d, character: %d\n", lineNumber, charNumber);
                     return;
                 }
             }
-            charNumber++;
+
+
+            charNumber += numberOfCharactersMatched;
         } else {                                                // case 3 : character doesn't match
             currentChar = (char) fgetc(file);
             charNumber++;
