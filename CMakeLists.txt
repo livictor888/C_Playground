@@ -25,6 +25,7 @@ add_executable(string_backwards "comp2510/Week_3_reverse_string_recursive.c")
 add_executable(recursive "comp2510/Week_3_Recursive_Functions.c")
 add_executable(odd_Numbers "comp2510/Week_3_Get_Odd_Numbers_Recursive.c")
 add_executable(max_element "comp2510/Week_3_max_element_recursive.c")
+add_executable(Error_handling comp2510/Week_4_Error_Handling.c)
 
 add_executable(quiz1 comp2510/Q1.c)
 add_executable(quiz1x comp2510/Q1X.c)
