@@ -5,31 +5,30 @@
 #define ERROR_TOO_MANY_ARGUMENTS 2
 #define ERROR_MISSING_ARGUMENTS 3
 
-void lookForFirstLetter(FILE *file, char *searchToken) {
+void searchForToken(FILE *file, char *searchToken) {
     int lineNumber = 1;
     int charNumber = 1;
     char currentChar = (char) fgetc(file);
     while (currentChar != EOF) {
-        if (currentChar == '\n') { // case 1: encounter a new line
+        if (currentChar == '\n') {                              // case 1: encounter a new line
             lineNumber++;
             charNumber = 1;
             currentChar = (char) fgetc(file);
-        } else if (currentChar == *searchToken) { // case 2: match the first character of the searchToken
+        } else if (currentChar == *searchToken) {               // case 2: match the first character of the searchToken
             char *pointer = searchToken;
-            while (currentChar == *pointer) { // match with the rest of the searchToken
+            while (currentChar == *pointer) {
                 pointer++;
                 currentChar = (char) fgetc(file);
                 if (*pointer == '\0') {
-                    printf("character is at line: %d, character: %d\n", lineNumber, charNumber);
+                    printf("Line: %d, character: %d\n", lineNumber, charNumber);
                     return;
                 }
             }
             charNumber++;
-        } else { // case 3 : character doesn't match
-            currentChar = (char) fgetc(file); // check the next character
+        } else {                                                // case 3 : character doesn't match
+            currentChar = (char) fgetc(file);
             charNumber++;
         }
-
     }
     printf("Character not found.\n");
 }
@@ -40,16 +39,12 @@ bool processFile(char *fileName, char *searchToken) {
         printf("File not found.\n");
         return false;
     }
-    lookForFirstLetter(file, searchToken);
+    searchForToken(file, searchToken);
     fclose(file);
     return true;
 }
 
 int main(int argc, char *argv[]) {
-    // Arguments: input.txt assignment
-    // Output:    Line: 1, character; 53
-    // Arguments: input.txt third
-    // Output:    Not found!
     printf("Program name is %s\n", argv[0]);
     if (argc == 3) {
         printf("The arguments supplied are %s, %s\n", argv[1], argv[2]);
