@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h>
 
-#define ERROR_FILE_NOT_FOUND 1
-#define ERROR_TOO_MANY_ARGUMENTS 2
-#define ERROR_MISSING_ARGUMENTS 3
+#define EXPECTED_NUMBER_OF_ARGUMENTS 2
+#define INVALID_NUMBER_OF_ARGUMENTS_CODE 1
+#define FILE_NOT_FOUND_CODE 2
 
 void searchForToken(FILE *file, char *searchToken) {
     int lineNumber = 1;
@@ -36,33 +36,26 @@ void searchForToken(FILE *file, char *searchToken) {
     printf("Not found!\n");
 }
 
-bool processFile(char *fileName, char *searchToken) {
+void processFile(char *fileName, char *searchToken) {
     FILE *file = fopen(fileName, "r");
     if (file == NULL) {
-        printf("File not found.\n");
-        return false;
+        perror("File not found.");
+        exit(FILE_NOT_FOUND_CODE);
     }
     searchForToken(file, searchToken);
     fclose(file);
-    return true;
+}
+
+void validateNumberOfArguments(int argc) {
+    if (argc != EXPECTED_NUMBER_OF_ARGUMENTS + 1) {
+        perror("Need exactly 2 arguments");
+        exit(INVALID_NUMBER_OF_ARGUMENTS_CODE);
+    }
 }
 
 int main(int argc, char *argv[]) {
     printf("Program name is %s\n", argv[0]);
-    if (argc == 3) {
-        printf("The arguments supplied are %s, %s\n", argv[1], argv[2]);
-        char *fileName = argv[1];
-        char *searchToken = argv[2];
-        bool succeeded = processFile(fileName, searchToken);
-        if (succeeded == false) {
-            return ERROR_FILE_NOT_FOUND;
-        }
-    } else if (argc > 3) {
-        printf("Too many arguments supplied.\n");
-        return ERROR_TOO_MANY_ARGUMENTS;
-    } else {
-        printf("Missing arguments.\n");
-        return ERROR_MISSING_ARGUMENTS;
-    }
+    validateNumberOfArguments(argc);
+    processFile(argv[1], argv[2]);
     return 0;
 }
