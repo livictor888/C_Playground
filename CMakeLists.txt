@@ -13,6 +13,7 @@ add_executable(lab4 comp2510/Lab_Week_4.c)
 add_executable(lab4_r comp2510/Lab_Week_4_Recursive.c)
 add_executable(lab5 comp2510/Lab_Week_5.c)
 add_executable(lab6 comp2510/Lab_Week_6.c)
+add_executable(lab8 comp2510/Lab_Week_8.c)
 
 add_executable(check_valid_password comp2510/Week_2_sept20_check_valid_password.c)
 add_executable(get_first_nonrepeated_character comp2510/Week_2_sept20_get_first_nonrepeated_character.c)
