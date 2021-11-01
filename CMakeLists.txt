@@ -33,3 +33,5 @@ add_executable(quiz1x comp2510/Q1X.c)
 add_executable(quiz1y comp2510/Q1Y.c)
 add_executable(quiz1z comp2510/Q1Z.c)
 add_executable(quiz_1 comp2510/Quiz_1.c)
+
+add_executable(reverse_string comp2510/Interview_Reverse_String.c)
