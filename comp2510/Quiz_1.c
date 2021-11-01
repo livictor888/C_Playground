@@ -1,16 +1,18 @@
 #include "stdio.h"
 
-#define UPPER_TO_LOWER_ASCII_DIFFERENCE 32
+#define UPPER_TO_LOWER_ASCII_DIFFERENCE 'a' - 'A'
 #define CHARACTER_TO_DOUBLE '*'
 
 void transformString(char *input, char *output) {
     if (!*input) {
         return;
-    } else if (*input >= 'A' && *input <= 'Z') {
+    }
+    if (*input >= 'A' && *input <= 'Z') {
         int characterASCIIValue = (int) *input;
         *output = (char) (characterASCIIValue + UPPER_TO_LOWER_ASCII_DIFFERENCE);
         transformString(input + 1, output + 1);
-    } else if (*input == CHARACTER_TO_DOUBLE) {
+    }
+    if (*input == CHARACTER_TO_DOUBLE) {
         *output = *input;
         output++;
         *output = *input;

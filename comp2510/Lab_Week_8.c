@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 #define FILE_NOT_FOUND_ERROR_CODE 1
-#define MAX_OUTPUT_SIZE 100
 
 void mapCharactersUsingFile(char *fileName, char *input, char *output) {
     FILE *file = fopen(fileName, "r");
@@ -33,9 +32,9 @@ int main() {
     char input2[] = "Adam's name.";
     char input3[] = "Ascend";
 
-    char output1[MAX_OUTPUT_SIZE];
-    char output2[MAX_OUTPUT_SIZE];
-    char output3[MAX_OUTPUT_SIZE];
+    char output1[strlen(input1) + 1];
+    char output2[strlen(input2) + 1];
+    char output3[strlen(input3) + 1];
 
     mapCharactersUsingFile(fileName, input1, output1);
     mapCharactersUsingFile(fileName, input2, output2);
