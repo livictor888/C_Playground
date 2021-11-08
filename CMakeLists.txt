@@ -29,6 +29,8 @@ add_executable(odd_Numbers "comp2510/Week_3_Get_Odd_Numbers_Recursive.c")
 add_executable(max_element "comp2510/Week_3_max_element_recursive.c")
 add_executable(Error_handling comp2510/Week_4_Error_Handling.c)
 add_executable(week_6_anagram comp2510/Week_6_Anagrams.c)
+add_executable(week_8_max_struc comp2510/Week_8_Max_Struc.c)
+add_executable(week_8_arrow comp2510/Week_8_Arrow_Notation.c)
 
 add_executable(quiz1 comp2510/Q1.c)
 add_executable(quiz1x comp2510/Q1X.c)

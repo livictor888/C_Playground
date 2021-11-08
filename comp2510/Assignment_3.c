@@ -9,6 +9,11 @@
 
 void storeIntoArray();
 
+struct Student {
+    char *name;
+    double GPA;
+};
+
 void processFile(char *fileName) {
     FILE *file = fopen(fileName, "r");
     if (file == NULL) {
