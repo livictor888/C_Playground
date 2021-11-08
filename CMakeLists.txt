@@ -31,6 +31,10 @@ add_executable(Error_handling comp2510/Week_4_Error_Handling.c)
 add_executable(week_6_anagram comp2510/Week_6_Anagrams.c)
 add_executable(week_8_max_struc comp2510/Week_8_Max_Struc.c)
 add_executable(week_8_arrow comp2510/Week_8_Arrow_Notation.c)
+add_executable(week_8_date comp2510/Week_8_Date_Exercise.c)
+add_executable(week_8_macro comp2510/Week_8_Macro_Function.c)
+add_executable(week_8_macro_p comp2510/Week_8_Macro_Parenthesis.c)
+
 
 add_executable(quiz1 comp2510/Q1.c)
 add_executable(quiz1x comp2510/Q1X.c)

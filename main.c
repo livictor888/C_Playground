@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+struct point {
+    int x;
+    int y;
+    int z;
+};
+
 void copyFile(char *inputFileName, char *outputFileName) {
     FILE *inputFile = fopen(inputFileName, "r");
     FILE *outputFile = fopen(outputFileName, "w");
@@ -23,5 +29,12 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < 100; i++) {
         printf("%d\n", map[i]);
     }
+
+
+    struct point p;
+    p.x = 10;
+    p.y = -3;
+    p.z = 2;
+    printf("sizeof(p) = %zu\n", sizeof(p));
     return 0;
 }
