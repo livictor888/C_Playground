@@ -11,7 +11,7 @@ void printMultiplicationTable() {
 }
 
 bool isPalindrome(int elements[], int size) {
-    if (size == 1|| size == 0) {
+    if (size == 1 || size == 0) {
         return true;
     }
     for (int i = 0; i < size/2; i++) {
