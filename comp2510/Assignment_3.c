@@ -1,10 +1,3 @@
-/**
- * read student.txt
- * store as a student struct element in an array only if their GPA is greater than 3.9
- * reallocate memory as it fills up
- * sort the list by GPA in descending order, if same than sort by name?
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,11 +17,28 @@ struct Student {
 };
 
 void printArray(struct Student *arrayOfStudents, int length) {
-    // sort the students by GPA
     for (int i = 0; i < length; i++) {
         printf("name: %s gpa: %.3f\n", arrayOfStudents[i].name, arrayOfStudents[i].gpa);
     }
 }
+
+void swap(struct Student *first, struct Student *second) {
+    struct Student temp = *first;
+    *first = *second;
+    *second = temp;
+}
+
+void sort(struct Student *arrayOfStudents, int length) {
+    for (int i = 0; i < length; i++) {
+        for (int j = 0; j < length - i - 1; j++) {
+            if (arrayOfStudents[j].gpa < arrayOfStudents[j + 1].gpa) {
+                swap(&arrayOfStudents[j], &arrayOfStudents[j + 1]);
+            }
+        }
+    }
+    printArray(arrayOfStudents, length);
+}
+
 struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *arraySize) {
     if (usedLength < *arraySize) {
         return array;
@@ -66,7 +76,7 @@ void readFile(FILE *file) {
             length++;
         }
     }
-    printArray(arrayOfStudents, length);
+    sort(arrayOfStudents, length);
 }
 
 void processFile(char *fileName) {
