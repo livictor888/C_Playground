@@ -17,8 +17,10 @@ struct Student {
 };
 
 void printArray(struct Student *arrayOfStudents, int length) {
-    for (int i = 0; i < length; i++) {
-        printf("name: %s gpa: %.3f\n", arrayOfStudents[i].name, arrayOfStudents[i].gpa);
+    for (int index = 0; index < length; index++) {
+        if (arrayOfStudents[index].gpa > GPA_THRESHOLD) {
+            printf("%s %.3f\n", arrayOfStudents[index].name, arrayOfStudents[index].gpa);
+        }
     }
 }
 
@@ -43,7 +45,6 @@ struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *
     if (usedLength < *arraySize) {
         return array;
     }
-    printf("resizing..\n");
     *arraySize *= 2; // double the array size
     array = (struct Student *) realloc(array, *arraySize * sizeof(struct Student));
     if (array == NULL) {
@@ -68,15 +69,14 @@ void readFile(FILE *file) {
 
     while (fscanf(file, "%s %f", name, &gpa) != EOF) {
         //printf("%s %.3f\n", name, gpa);
-        if (gpa >= GPA_THRESHOLD) {
             arrayOfStudents = resizeArrayIfNeeded(arrayOfStudents, length + 1, &size); // check first
             strcpy(currentStudent.name, name);
             currentStudent.gpa = gpa;
             arrayOfStudents[length] = currentStudent;
             length++;
-        }
     }
     sort(arrayOfStudents, length);
+    free(arrayOfStudents);
 }
 
 void processFile(char *fileName) {
