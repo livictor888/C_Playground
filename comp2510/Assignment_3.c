@@ -1,12 +1,13 @@
 /**
  * read student.txt
  * store as a student struct element in an array only if their GPA is greater than 3.9
- * realloc memory as it fills up
+ * reallocate memory as it fills up
  * sort the list by GPA in descending order, if same than sort by name?
  */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define EXPECTED_NUMBER_OF_ARGUMENTS 1
 #define INITIAL_SIZE 5
@@ -22,10 +23,14 @@ struct Student {
     float gpa;
 };
 
-void storeIntoArray();
-// read line from file
+void printArray(struct Student *arrayOfStudents, int length) {
+    // sort the students by GPA
+    for (int i = 0; i < length; i++) {
+        printf("name: %s gpa: %.3f\n", arrayOfStudents[i].name, arrayOfStudents[i].gpa);
+    }
+}
 struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *arraySize) {
-    if (usedLength <= *arraySize) {
+    if (usedLength < *arraySize) {
         return array;
     }
     printf("resizing..\n");
@@ -43,22 +48,26 @@ void readFile(FILE *file) {
     float gpa = 0;
     int length = 0;
     int size = INITIAL_SIZE;
+    struct Student currentStudent;
 
-    //create an array of struct Student
     struct Student *arrayOfStudents = (struct Student *) malloc(size * sizeof(struct Student));
-
-    // read line by line, create the student, and put into the Student array, resizing when needed
-    while (fscanf(file, "%s %f", name, &gpa) != EOF) {
-        //printf("%s %.3f\n", name, gpa);
-        arrayOfStudents = resizeArrayIfNeeded(arrayOfStudents, length + 1, &size); // check first
-        struct Student currentStudent = {name, gpa};
-        arrayOfStudents[length] = currentStudent;
-        length++;
+    if (arrayOfStudents == NULL) {
+        perror("Failed to allocate memory.");
+        exit(FAILED_TO_ALLOCATE_MEMORY);
     }
 
+    while (fscanf(file, "%s %f", name, &gpa) != EOF) {
+        //printf("%s %.3f\n", name, gpa);
+        if (gpa >= GPA_THRESHOLD) {
+            arrayOfStudents = resizeArrayIfNeeded(arrayOfStudents, length + 1, &size); // check first
+            strcpy(currentStudent.name, name);
+            currentStudent.gpa = gpa;
+            arrayOfStudents[length] = currentStudent;
+            length++;
+        }
+    }
+    printArray(arrayOfStudents, length);
 }
-
-
 
 void processFile(char *fileName) {
     FILE *file = fopen(fileName, "r");
@@ -85,26 +94,3 @@ int main(int argc, char *argv[]) {
     processFile(argv[1]);
     return 0;
 }
-
-/*
- * #include <stdlib.h>
-#define MEMORY_ALLOCATION_ERROR_CODE 1
-
-void *safe_malloc(size_t n) {
-  void *ptr = malloc(n);
-  if (ptr == NULL) {
-    perror("Failed to allocate memory.");
-    exit(MEMORY_ALLOCATION_ERROR_CODE);
-  }
-  return ptr;
-}
-
- FILE *openFile(char *fileName) {
-    FILE *file = fopen(fileName, "r");
-    if (file == NULL) {
-        perror("Could not open file for reading.\n");
-        exit(COULD_NOT_OPEN_FILE_ERROR_CODE);
-    }
-    return file;
-}
- */
