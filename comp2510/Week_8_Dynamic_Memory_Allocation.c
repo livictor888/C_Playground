@@ -1,3 +1,7 @@
+// improve this code:
+// scanf expected a number, if a string/char is passed it will crash
+// must have checks to see if malloc or realloc returns a null value, meaning it didn't work
+
 #include <stdio.h>
 #include <stdlib.h>
 
