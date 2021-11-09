@@ -11,6 +11,7 @@
 #define EXPECTED_NUMBER_OF_ARGUMENTS 1
 #define INITIAL_SIZE 5
 #define MAX_NAME_LENGTH 50
+#define GPA_THRESHOLD 3.9f
 
 #define INVALID_NUMBER_OF_ARGUMENTS_CODE 1
 #define FILE_NOT_FOUND_CODE 2
@@ -18,18 +19,18 @@
 
 struct Student {
     char name[MAX_NAME_LENGTH];
-    double grade;
+    float gpa;
 };
 
 void storeIntoArray();
 // read line from file
-int *resizeArrayIfNeeded(int *array, int usedLength, int *arraySize) {
+struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *arraySize) {
     if (usedLength <= *arraySize) {
         return array;
     }
     printf("resizing..\n");
     *arraySize *= 2; // double the array size
-    array = (int *) realloc(array, *arraySize * sizeof(int));
+    array = (struct Student *) realloc(array, *arraySize * sizeof(struct Student));
     if (array == NULL) {
         perror("Failed to reallocate memory.");
         exit(FAILED_TO_ALLOCATE_MEMORY);
@@ -38,21 +39,21 @@ int *resizeArrayIfNeeded(int *array, int usedLength, int *arraySize) {
 }
 
 void readFile(FILE *file) {
-
-    char name[10];
-    float grade = 0;
+    char name[MAX_NAME_LENGTH] = {0};
+    float gpa = 0;
     int length = 0;
     int size = INITIAL_SIZE;
-    //struct Student *array[INITIAL_SIZE];
 
-    int *array = (int *) malloc(size * sizeof(int));
+    //create an array of struct Student
+    struct Student *arrayOfStudents = (struct Student *) malloc(size * sizeof(struct Student));
 
-    while (fscanf(file, "%s %f", name, &grade) != EOF) {
-        //printf("%s %.3f\n", name, grade);
+    // read line by line, create the student, and put into the Student array, resizing when needed
+    while (fscanf(file, "%s %f", name, &gpa) != EOF) {
+        //printf("%s %.3f\n", name, gpa);
+        arrayOfStudents = resizeArrayIfNeeded(arrayOfStudents, length + 1, &size); // check first
+        struct Student currentStudent = {name, gpa};
+        arrayOfStudents[length] = currentStudent;
         length++;
-        array = resizeArrayIfNeeded(array, length, &size);
-
-
     }
 
 }
