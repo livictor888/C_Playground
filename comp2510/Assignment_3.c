@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define INVALID_NUMBER_OF_ARGUMENTS_CODE 1
+#define FILE_NOT_FOUND_CODE 2
+#define FAILED_TO_ALLOCATE_MEMORY 3
+
 #define EXPECTED_NUMBER_OF_ARGUMENTS 1
 #define INITIAL_SIZE 5
 #define MAX_NAME_LENGTH 50
 #define GPA_THRESHOLD 3.9f
-
-#define INVALID_NUMBER_OF_ARGUMENTS_CODE 1
-#define FILE_NOT_FOUND_CODE 2
-#define FAILED_TO_ALLOCATE_MEMORY 3
 
 struct Student {
     char name[MAX_NAME_LENGTH];
@@ -45,7 +45,7 @@ struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *
     if (usedLength < *arraySize) {
         return array;
     }
-    *arraySize *= 2; // double the array size
+    *arraySize *= 2;
     array = (struct Student *) realloc(array, *arraySize * sizeof(struct Student));
     if (array == NULL) {
         perror("Failed to reallocate memory.");
@@ -68,12 +68,11 @@ void readFile(FILE *file) {
     }
 
     while (fscanf(file, "%s %f", name, &gpa) != EOF) {
-        //printf("%s %.3f\n", name, gpa);
-            arrayOfStudents = resizeArrayIfNeeded(arrayOfStudents, length + 1, &size); // check first
-            strcpy(currentStudent.name, name);
-            currentStudent.gpa = gpa;
-            arrayOfStudents[length] = currentStudent;
-            length++;
+        arrayOfStudents = resizeArrayIfNeeded(arrayOfStudents, length + 1, &size); // check first
+        strcpy(currentStudent.name, name);
+        currentStudent.gpa = gpa;
+        arrayOfStudents[length] = currentStudent;
+        length++;
     }
     sort(arrayOfStudents, length);
     free(arrayOfStudents);
@@ -91,15 +90,12 @@ void processFile(char *fileName) {
 
 void validateNumberOfArguments(int argc) {
     if (argc != EXPECTED_NUMBER_OF_ARGUMENTS + 1) {
-        perror("Need exactly 2 arguments");
+        perror("Wrong number of arguments");
         exit(INVALID_NUMBER_OF_ARGUMENTS_CODE);
-    } else {
-        printf("Correct amount of arguments!\n");
     }
 }
 
 int main(int argc, char *argv[]) {
-    printf("The program name is %s\n", argv[0]);
     validateNumberOfArguments(argc);
     processFile(argv[1]);
     return 0;
