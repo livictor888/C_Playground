@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define INVALID_NUMBER_OF_ARGUMENTS_CODE 1
 #define FAILED_TO_ALLOCATE_MEMORY 2
 
 #define EXPECTED_NUMBER_OF_ARGUMENTS 1
-#define INITIAL_SIZE 5
 #define SPACE ' '
 #define ASTERISK '*'
 #define TO_UPPER ('a' - 'A')
@@ -23,8 +23,21 @@ char *resizeArrayIfNeeded(char *array, int amountFilled, int *arraySize) {
     return array;
 }
 
+int findSize(char *string) {
+    int size = (int) strlen(string);
+    while (*string) {
+        if (*string == SPACE) {
+            size--;
+        } else if (*string == ASTERISK) {
+            size++;
+        }
+        string++;
+    }
+    return size;
+}
+
 char *transform(char *string) {
-    int size = INITIAL_SIZE;
+    int size = findSize(string);
     int length = 0;
 
     char *result = malloc(size * sizeof(char));
@@ -34,6 +47,7 @@ char *transform(char *string) {
     }
 
     while (*string) {
+
         resizeArrayIfNeeded(result, length + 2, &size);
         if (*string == ASTERISK) {
             *(result + length++) = '*';
@@ -58,8 +72,8 @@ void validateNumberOfArguments(int argc) {
 
 int main(int argc, char *argv[]) {
     validateNumberOfArguments(argc);
-    char* string = transform(argv[1]);
-    printf("%s\n", string);
-    free(string);
+    char* output = transform(argv[1]);
+    printf("%s\n", output);
+    free(output);
     return 0;
 }
