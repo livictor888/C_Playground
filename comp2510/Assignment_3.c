@@ -12,9 +12,16 @@
 #define GPA_THRESHOLD 3.9f
 
 struct Student {
-    char name[MAX_NAME_LENGTH];
+    char *name;
     float gpa;
 };
+
+void cleanUpMemory(struct Student *array, int length) {
+    for (int index = 0; index < length; index++) {
+        free(array[index].name);
+    }
+    free(array);
+}
 
 void printArray(struct Student *arrayOfStudents, int length) {
     for (int index = 0; index < length; index++) {
@@ -69,13 +76,13 @@ void readFile(FILE *file) {
 
     while (fscanf(file, "%s %f", name, &gpa) != EOF) {
         arrayOfStudents = resizeArrayIfNeeded(arrayOfStudents, length + 1, &size); // check first
-        strcpy(currentStudent.name, name);
+        currentStudent.name = strdup(name);
         currentStudent.gpa = gpa;
         arrayOfStudents[length] = currentStudent;
         length++;
     }
     sort(arrayOfStudents, length);
-    free(arrayOfStudents);
+    cleanUpMemory(arrayOfStudents, length);
 }
 
 void processFile(char *fileName) {
