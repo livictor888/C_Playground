@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #define FAILED_TO_ALLOCATE_MEMORY_CODE 1
 
 struct Node {
@@ -8,7 +9,7 @@ struct Node {
 };
 
 // replace "struct Node *" with "Link" everywhere
-typedef struct Node * Link;
+typedef struct Node *Link;
 
 //void printLinkedList(struct Node *head) {
 //    struct Node *currentNode = head;
@@ -23,12 +24,12 @@ typedef struct Node * Link;
 //}
 
 void printLinkedListRecursively(Link head) {
-    if(!head) {         // empty linked list or reached the end
+    if (!head) {         // empty linked list or reached the end
         printf("\n");
         return;
     }
     printf("%d", head->data);
-    if(head->next) {   // if there is a next node
+    if (head->next) {   // if there is a next node
         printf("->");
     }
     printLinkedListRecursively(head->next);
@@ -73,6 +74,37 @@ void push(Link *head, int data) {                       //you must use a pointer
     *head = newHead;
 }
 
+Link getTailIterative(Link head) {
+    if (!head) {
+        return NULL;
+    }
+    Link currentNode = head;
+    while (currentNode->next != NULL) {
+        currentNode = currentNode->next;
+    }
+    return currentNode;
+}
+
+Link getTail(Link head) {
+    if (!head) {                    // 0 (empty) case
+        return NULL;
+    }
+    if (!head->next) {       // 1 (single) case
+        return head;
+    }
+    return getTail(head->next);     // multiple nodes in the list case
+}
+
+void addLast(Link *head, int data) {
+    Link newTail = createNode(data);
+    if (*head == NULL) {
+        *head = newTail;
+        return;
+    }
+    Link currentTail = getTail(*head);
+    currentTail->next = newTail;
+}
+
 int main() {
     // 4 -> 20 -> 10 -> NULL
     //struct Node node3 = {10, NULL};
@@ -92,6 +124,34 @@ int main() {
     push(&node1, 5);
     printLinkedListRecursively(node1);
     printf("Recursive: the length of the linked list is: %d\n", getLengthRecursively(node1));
+
+    printf("\n");
+    Link tail = getTail(node1);
+    printf("The tail is: %d\n", tail->data);
+
+    printf("\n");
+
+    printf("Adding a new tail\n");
+    addLast(&node1, 89);
+    printLinkedListRecursively(node1);
+
+    printf("\n");
+//    printf("Making a new linked list with addLast\n");
+//    // Linked list : 10 -> 25 -> 99 ->  75
+    Link headOfAnotherLinkedList = NULL;
+//    addLast(&headOfAnotherLinkedList, 10);
+//    addLast(&headOfAnotherLinkedList, 25);
+//    addLast(&headOfAnotherLinkedList, 99);
+//    addLast(&headOfAnotherLinkedList, 75);
+//    printLinkedListRecursively(headOfAnotherLinkedList);
+
+    // Linked list but using push instead of addLast
+    printf("Making a new linked list with push\n");
+    push(&headOfAnotherLinkedList, 75);
+    push(&headOfAnotherLinkedList, 99);
+    push(&headOfAnotherLinkedList, 25);
+    push(&headOfAnotherLinkedList, 10);
+    printLinkedListRecursively(headOfAnotherLinkedList);
 
     return 0;
 }
