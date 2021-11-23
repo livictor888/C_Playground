@@ -37,18 +37,21 @@ Link createNodeWithNextNode(bool isProcess, char *pid, int base, int limit, Link
     return link;
 }
 
-void printMemory(Link head, int startingNode) {
+void printLink(Link head, int index) {
     if (head == NULL) {
         printf("\n");
         return;
     }
     if (head->isProcess) {
-        printf("Node %d: %s, base = %d, limit = %d\n", startingNode, head->pid, head->base, head->limit);
-        printMemory(head->next, startingNode + 1);
+        printf("Node %d: %s, base = %d, limit = %d\n", index, head->pid, head->base, head->limit);
+        printLink(head->next, index + 1);
     } else {
-        printf("Node %d: H (Hole), base = %d, limit = %d\n", startingNode, head->base, head->limit);
-        printMemory(head->next, startingNode + 1);
+        printf("Node %d: H (Hole), base = %d, limit = %d\n", index, head->base, head->limit);
+        printLink(head->next, index + 1);
     }
+}
+void printMemory(Link head) {
+    printLink(head, 1);
 }
 
 int main() {
