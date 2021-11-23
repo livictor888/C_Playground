@@ -40,6 +40,10 @@ add_executable(week_8_dynamic_memory comp2510/Week_8_Dynamic_Memory_Allocation.c
 add_executable(week_11_function_pointer comp2510/Week_11_Function_Pointer_Easy.c)
 add_executable(week_11_generic_function comp2510/Week_11_Generic_Function_Medium.c)
 add_executable(week_12_linked_list comp2510/Week_12_Linked_Lists.c)
+add_executable(week_12_LL_Complete comp2510/Week_12_Linked_List_Complete.c)
+add_executable(week_12_filter comp2510/Week_12_Lecture.c)
+add_executable(week_12_split comp2510/Week_12_Linked_List_Split.c)
+
 
 add_executable(quiz1 comp2510/Q1.c)
 add_executable(quiz1x comp2510/Q1X.c)

@@ -23,7 +23,7 @@ typedef struct Node *Link;
 //    printf("\n");
 //}
 
-void printLinkedListRecursively(Link head) {
+void printLinkedList(Link head) {
     if (!head) {         // empty linked list or reached the end
         printf("\n");
         return;
@@ -32,7 +32,7 @@ void printLinkedListRecursively(Link head) {
     if (head->next) {   // if there is a next node
         printf("->");
     }
-    printLinkedListRecursively(head->next);
+    printLinkedList(head->next);
 }
 
 Link createNode(int data) {
@@ -114,7 +114,7 @@ int main() {
     //struct Node node1 = {4, &node2};
     Link node1 = createNodeWithNext(4, node2);
     //printLinkedList(&node1);
-    printLinkedListRecursively(node1);
+    printLinkedList(node1);
     printf("Iterative: the length of the linked list is: %d\n", getLength(node1));
     printf("Recursive: the length of the linked list is: %d\n", getLengthRecursively(node1));
 
@@ -122,7 +122,7 @@ int main() {
 
     printf("Adding a new head here with a value of 5 using the push function.\n");
     push(&node1, 5);
-    printLinkedListRecursively(node1);
+    printLinkedList(node1);
     printf("Recursive: the length of the linked list is: %d\n", getLengthRecursively(node1));
 
     printf("\n");
@@ -133,7 +133,7 @@ int main() {
 
     printf("Adding a new tail\n");
     addLast(&node1, 89);
-    printLinkedListRecursively(node1);
+    printLinkedList(node1);
 
     printf("\n");
 //    printf("Making a new linked list with addLast\n");
@@ -143,7 +143,7 @@ int main() {
 //    addLast(&headOfAnotherLinkedList, 25);
 //    addLast(&headOfAnotherLinkedList, 99);
 //    addLast(&headOfAnotherLinkedList, 75);
-//    printLinkedListRecursively(headOfAnotherLinkedList);
+//    printLinkedList(headOfAnotherLinkedList);
 
     // Linked list but using push instead of addLast
     printf("Making a new linked list with push\n");
@@ -151,7 +151,7 @@ int main() {
     push(&headOfAnotherLinkedList, 99);
     push(&headOfAnotherLinkedList, 25);
     push(&headOfAnotherLinkedList, 10);
-    printLinkedListRecursively(headOfAnotherLinkedList);
+    printLinkedList(headOfAnotherLinkedList);
 
     return 0;
 }
