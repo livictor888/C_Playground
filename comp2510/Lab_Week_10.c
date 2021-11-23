@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define INVALID_NUMBER_OF_ARGUMENTS_CODE 1
-#define FAILED_TO_ALLOCATE_MEMORY 2
+#define FAILED_TO_ALLOCATE_MEMORY_CODE 2
 
 #define EXPECTED_NUMBER_OF_ARGUMENTS 1
 #define SPACE ' '
@@ -18,7 +18,7 @@ char *resizeArrayIfNeeded(char *array, int amountFilled, int *arraySize) {
     array = (char *) realloc(array, *arraySize * sizeof(char));
     if (array == NULL) {
         perror("Failed to reallocate memory.");
-        exit(FAILED_TO_ALLOCATE_MEMORY);
+        exit(FAILED_TO_ALLOCATE_MEMORY_CODE);
     }
     return array;
 }
@@ -43,7 +43,7 @@ char *transform(char *string) {
     char *result = malloc(size * sizeof(char));
     if (result == NULL) {
         perror("Failed to allocate memory.");
-        exit(FAILED_TO_ALLOCATE_MEMORY);
+        exit(FAILED_TO_ALLOCATE_MEMORY_CODE);
     }
 
     while (*string) {

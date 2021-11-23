@@ -4,7 +4,7 @@
 
 #define INVALID_NUMBER_OF_ARGUMENTS_CODE 1
 #define FILE_NOT_FOUND_CODE 2
-#define FAILED_TO_ALLOCATE_MEMORY 3
+#define FAILED_TO_ALLOCATE_MEMORY_CODE 3
 
 #define EXPECTED_NUMBER_OF_ARGUMENTS 1
 #define INITIAL_SIZE 5
@@ -56,7 +56,7 @@ struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *
     array = (struct Student *) realloc(array, *arraySize * sizeof(struct Student));
     if (array == NULL) {
         perror("Failed to reallocate memory.");
-        exit(FAILED_TO_ALLOCATE_MEMORY);
+        exit(FAILED_TO_ALLOCATE_MEMORY_CODE);
     }
     return array;
 }
@@ -71,7 +71,7 @@ void readFile(FILE *file) {
     struct Student *arrayOfStudents = (struct Student *) malloc(size * sizeof(struct Student));
     if (arrayOfStudents == NULL) {
         perror("Failed to allocate memory.");
-        exit(FAILED_TO_ALLOCATE_MEMORY);
+        exit(FAILED_TO_ALLOCATE_MEMORY_CODE);
     }
 
     while (fscanf(file, "%s %f", name, &gpa) != EOF) {
