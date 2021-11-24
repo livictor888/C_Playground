@@ -10,7 +10,7 @@ struct Node {
     struct Node *next;
 };
 
-typedef struct Node* Link;
+typedef struct Node *Link;
 
 void printLinkedList(Link head) {
     if (!head) {
@@ -44,15 +44,6 @@ Link createNodeWithNextNode(int data, Link next) {
     return link;
 }
 
-int getLinkedListLength(Link head) {
-    int length = 0;
-    Link currentNode = head;
-    while (currentNode) {
-        currentNode = currentNode->next;
-        length++;
-    }
-    return length;
-}
 
 int getLinkedListLengthRecursive(Link head) {
     if (!head) {
@@ -129,14 +120,6 @@ int pop(Link *head) {
     return data;
 }
 
-void addElementAfterPosition(Link head, int data, int position) {
-/* Left as an exercise */
-}
-
-int deleteNodeAtPosition(Link *head, int position) {
-/* Left as an exercise */
-    return 0;
-}
 
 Link copyList(Link head) {
     if (head == NULL) {

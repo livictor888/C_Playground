@@ -58,5 +58,6 @@ int main() {
     Link head = NULL;
     head = createNode(true, "hello", 0, 5);
 
+    printMemory(head);
     return 0;
 }
