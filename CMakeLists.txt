@@ -45,6 +45,7 @@ add_executable(week_12_linked_list comp2510/Week_12_Linked_Lists.c)
 add_executable(week_12_LL_Complete comp2510/Week_12_Linked_List_Complete.c)
 add_executable(week_12_filter comp2510/Week_12_Lecture.c)
 add_executable(week_12_split comp2510/Week_12_Linked_List_Split.c)
+add_executable(week_13_BST comp2510/Week_13_Binary_Search_Tree.c)
 
 
 add_executable(quiz1 comp2510/Q1.c)
@@ -56,6 +57,7 @@ add_executable(quiz2a comp2510/Q2a.c)
 add_executable(quiz2 comp2510/Q2.c)
 add_executable(q3 comp2510/Q3.c)
 add_executable(quiz3 comp2510/Quiz_3.c)
+add_executable(quiz4 comp2510/Quiz_4.c)
 
 add_executable(reverse_string comp2510/Interview_Reverse_String.c)
 add_executable(optimize_code comp2510/Interview_Optimize_Code.c)
