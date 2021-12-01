@@ -51,7 +51,7 @@ bool compareDouble (void* data1, void* data2) {
 }
 
 void printDouble(void *data) {
-    printf(" %.2lf", *(double *)data);
+    printf("%.2lf ", *(double *)data);
 }
 
 bool compareString(void* first, void* second) {
@@ -62,6 +62,14 @@ void printString(void *data) {
     printf("%s\n", *(char **) data);
 }
 
+void freeTreeMemory(TreeNode root) {
+    if (root != NULL) {
+        freeTreeMemory(root->right);
+        freeTreeMemory(root->left);
+        free(root);
+    }
+}
+
 void sort(void *array, size_t size, int sizeOfDataType,
           bool (*compareFunctionPointer)(void *, void *), void (*printFunctionPointer)(void *)) {
     TreeNode root = NULL;
@@ -69,17 +77,32 @@ void sort(void *array, size_t size, int sizeOfDataType,
         root = insert(root, (array + (i * sizeOfDataType)), compareFunctionPointer);
     }
     printInOrder(root, printFunctionPointer);
+    freeTreeMemory(root);
 }
 
+
+
 int main() {
-    printf("sorting an array of doubles:\n");
     double doubleInputArray[5] = {9.0, 2.1, 6.6, 4.4, 5.7};
+    printf("Before sort:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("%.2lf ", doubleInputArray[i]);
+    }
+    printf("\n----------------------------\n");
+    printf("After sorting an array of doubles:\n");
     sort(doubleInputArray, 5, sizeof(double), &compareDouble, &printDouble);
+
 
     printf("\n----------------------------\n");
 
-    printf("sorting an array of strings:\n");
+
     char* stringInputArray[3] = {"hello", "world", "victor"};
+    printf("Before sort:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%s ", stringInputArray[i]);
+    }
+    printf("\n----------------------------\n");
+    printf("After sorting an array of strings:\n");
     sort(stringInputArray, 3, sizeof(char*), &compareString, &printString);
     return 0;
 }
