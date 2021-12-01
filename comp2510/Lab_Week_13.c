@@ -52,53 +52,6 @@ void printInOrder(TreeNode root, void (*printFunction)(void *)) {
     printInOrder(root->right, printFunction);
 }
 
-void printPreOrder(TreeNode root, void (*printFunction)(void *)) {
-    if (!root) {
-        return;
-    }
-//    printf(" %d", root->data);
-    printFunction(root->data);
-    printPreOrder(root->left, printFunction);
-    printPreOrder(root->right, printFunction);
-}
-
-void printPostOrder(TreeNode root, void (*printFunction)(void *)) {
-    if (!root) {
-        return;
-    }
-    printPostOrder(root->left, printFunction);
-    printPostOrder(root->right, printFunction);
-    printFunction(root->data);
-    //printf(" %d", root->data);
-}
-
-void duplicateNodeToLeft(TreeNode node) {
-    if (!node) {
-        return;
-    }
-    duplicateNodeToLeft(node->left);
-    duplicateNodeToLeft(node->right);
-    TreeNode oldLeft = node->left;
-    node->left = createTreeNode(node->data);
-    node->left->left = oldLeft;
-}
-
-void findMaxNodeInBinaryTreeRecursive(TreeNode node, TreeNode* currentMax) {
-    if (!node) {
-        return;
-    }
-    if (node->data > (*currentMax)->data) {
-        *currentMax = node;
-    }
-    findMaxNodeInBinaryTreeRecursive(node->left, currentMax);
-    findMaxNodeInBinaryTreeRecursive(node->right, currentMax);
-}
-
-TreeNode findMaxNodeInBinaryTree(TreeNode root) {
-    findMaxNodeInBinaryTreeRecursive(root, &root);
-    return root;
-}
-
 bool compareDouble (void* data1, void* data2) {
     double first = *(double *)data1;
     double second = *(double *)data2;
