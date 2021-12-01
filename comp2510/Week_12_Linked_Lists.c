@@ -105,6 +105,18 @@ void addLast(Link *head, int data) {
     currentTail->next = newTail;
 }
 
+void removeTail(Link *head) {
+    if (!*head) {
+        perror("Empty list.");
+    }
+    Link currentNode = *head;
+    if (currentNode->next) {
+        *head = NULL;
+        return;
+    }
+
+}
+
 int main() {
     // 4 -> 20 -> 10 -> NULL
     //struct Node node3 = {10, NULL};

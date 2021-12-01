@@ -23,18 +23,11 @@ TreeNode createTreeNode(void *data) {
     return newNode;
 }
 
-TreeNode createTreeNodeWithChildren(void *data, TreeNode leftChild, TreeNode rightChild) {
-    TreeNode newNode = createTreeNode(data);
-    newNode->left = leftChild;
-    newNode->right = rightChild;
-    return newNode;
-}
-
 TreeNode insert(TreeNode root, void *data, bool (*compareFunction)(void *, void *)) {
     if (!root) {
         return createTreeNode(data);
     }
-    if (data <= root->data) {
+    if (!compareFunction(data, root->data)) {
         root->left = insert(root->left, data, compareFunction);
     } else {
         root->right = insert(root->right, data, compareFunction);
@@ -47,7 +40,6 @@ void printInOrder(TreeNode root, void (*printFunction)(void *)) {
         return;
     }
     printInOrder(root->left, printFunction);
-//    printf(" %d", root->data);
     printFunction(root->data);
     printInOrder(root->right, printFunction);
 }
@@ -59,7 +51,7 @@ bool compareDouble (void* data1, void* data2) {
 }
 
 void printDouble(void *data) {
-    printf(" %.2lf", *(double *) data);
+    printf(" %.2lf", *(double *)data);
 }
 
 bool compareString(void* first, void* second) {
@@ -67,37 +59,27 @@ bool compareString(void* first, void* second) {
 }
 
 void printString(void *data) {
-    printf("%s", *(char **) data);
+    printf("%s\n", *(char **) data);
 }
 
-void sort(void *array, size_t size, size_t sizeOfDataType,
-          bool (*compareFunctionPointer)(void *, void *), bool (*printFunctionPointer)(void *, void *)) {
-
+void sort(void *array, size_t size, int sizeOfDataType,
+          bool (*compareFunctionPointer)(void *, void *), void (*printFunctionPointer)(void *)) {
+    TreeNode root = NULL;
+    for (int i = 0; i < size; i++) {
+        root = insert(root, (array + (i * sizeOfDataType)), compareFunctionPointer);
+    }
+    printInOrder(root, printFunctionPointer);
 }
 
 int main() {
-    //declare an array
-    //call sort
-/*
- * Binary Search Tree
- *
- *              5
- *          3       8
- *      1    4      6   9
- *                          10
- */
-    TreeNode node_1 = createTreeNode(1);
-    TreeNode node_4 = createTreeNode(4);
-    TreeNode node_6 = createTreeNode(6);
-    TreeNode node_9 = createTreeNode(9);
-    TreeNode node_3 = createTreeNodeWithChildren(3, node_1, node_4);
-    TreeNode node_8 = createTreeNodeWithChildren(8, node_6, node_9);
-    TreeNode root = createTreeNodeWithChildren(5, node_3, node_8);
+    printf("sorting an array of doubles:\n");
+    double doubleInputArray[5] = {9.0, 2.1, 6.6, 4.4, 5.7};
+    sort(doubleInputArray, 5, sizeof(double), &compareDouble, &printDouble);
 
-    root = insert(root, 10, &compareDouble);
-    printInOrder(root, printDouble);
-    int input[5] = {1, 2, 3, 4, 5};
+    printf("\n----------------------------\n");
 
-
+    printf("sorting an array of strings:\n");
+    char* stringInputArray[3] = {"hello", "world", "victor"};
+    sort(stringInputArray, 3, sizeof(char*), &compareString, &printString);
     return 0;
 }
