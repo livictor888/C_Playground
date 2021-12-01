@@ -20,21 +20,34 @@ void copyFile(char *inputFileName, char *outputFileName) {
     fclose(outputFile);
 }
 
+
+void printString(void *data) {
+    char **arrayOfStrings = (char **)data;
+    char *string = *(arrayOfStrings + 1);
+    char character = *string;
+
+    printf("%s\n", string);
+    printf("%c\n", character);
+}
+
 int main(int argc, char *argv[]) {
-//    char *inputFileName = argv[1];
-//    char *outputFileName = argv[2];
+    char * strings[] = {"hello", "world"};
+    printString(strings);
+
+////    char *inputFileName = argv[1];
+////    char *outputFileName = argv[2];
+////
+////    copyFile(inputFileName, outputFileName);
+//    int map[100] = {0, 1, 2, 3};
+//    for (int i = 0; i < 100; i++) {
+//        printf("%d\n", map[i]);
+//    }
 //
-//    copyFile(inputFileName, outputFileName);
-    int map[100] = {0, 1, 2, 3};
-    for (int i = 0; i < 100; i++) {
-        printf("%d\n", map[i]);
-    }
-
-
-    struct point p;
-    p.x = 10;
-    p.y = -3;
-    p.z = 2;
-    printf("sizeof(p) = %zu\n", sizeof(p));
+//
+//    struct point p;
+//    p.x = 10;
+//    p.y = -3;
+//    p.z = 2;
+//    printf("sizeof(p) = %zu\n", sizeof(p));
     return 0;
 }
