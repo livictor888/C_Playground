@@ -130,7 +130,7 @@ void compaction(Link *head) {
     int holeLimitCounter = 0;
     int currentBase = 0;
 
-    while(currentNode) {
+    while (currentNode) {
         if (currentNode->isHole) {
             holeLimitCounter += currentNode->limit;
         } else {
