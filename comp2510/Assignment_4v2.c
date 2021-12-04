@@ -82,7 +82,8 @@ void printLink(Link head, int index) {
 
 void printMemory(Link head) {
     if (head == NULL) {
-        printf("Empty linked list.\n");
+        printf("\n");
+        return;
     }
     printLink(head, 1);
 }
@@ -124,57 +125,30 @@ void compaction(Link *head) {
         return;
     }
 
-    bool startsWithHole = (*head)->isHole;
-    Link *newHead = NULL;
-    Link previous = NULL;
-    Link current = *head;
-    int limitCounter = 0;
-    int lastBase = 0;
+    Link currentNode = *head;
+    Link newHead = NULL;
+    int holeLimitCounter = 0;
+    int currentBase = 0;
 
-    while (current != NULL) {                       // traverse from the beginning to the end of the linked list
-        if (startsWithHole) {                      // in the case that the linked list starts with a hole.
-            limitCounter += current->limit;
-            (*head)->next->base = (*head)->base;
-            lastBase = (*head)->base;
-            startsWithHole = false;
-            current = (*head)->next;
-        } else if (!(current->isHole)) {
-            if (previous == NULL) {     // the case where the first node is a process, executes one time only
-                Link copyNode = createNodeWithNextNode(current->isHole, current->pid,
-                                                       current->base, current->limit, NULL);
-                lastBase = copyNode->base;
-                newHead = &copyNode;     // make sure to change the head pointer to this one afterwards
-                previous = *newHead;
-                current = current->next;
-            } else {                    // we are not on the first node anymore
-                addLast(newHead, current->isHole,
-                        current->pid, // can we use add last here to connect the node to the new linked list?
-                        (previous->base) + (previous->limit), current->limit);
-                lastBase = (previous->base) + (previous->limit);
-                previous = previous->next; // old head previous
-                current = current->next;
-            }
-        } else { // it's a hole, move on to the next node
-            if (current->next == NULL) {
-                current = current->next;
-
-            } else {
-                limitCounter += current->limit;
-                current = current->next;
-            }
+    while(currentNode) {
+        if (currentNode->isHole) {
+            holeLimitCounter += currentNode->limit;
+        } else {
+            addLast(&newHead, false, currentNode->pid, currentBase, currentNode->limit);
+            currentBase += (currentNode->limit);
         }
+        currentNode = currentNode->next;
     }
-    if (limitCounter > 0) {
-        addLast(newHead, true, 0, lastBase + 1, limitCounter);
+    if (holeLimitCounter > 0) {
+        addLast(&newHead, true, 0, currentBase, holeLimitCounter);
     }
-    //printMemory(*head);
     freeLinkedList(head);
-    *head = *newHead;
+    *head = newHead;
 }
 
 
 int main() {
-    printf("COMPACTION TESTS BEGIN HERE\n");
+    printf("------------- COMPACTION TESTS BEGIN HERE -------------\n\n");
     printf("Empty list test:\n");
     Link head = NULL;
     printf("Before compaction:\n");
@@ -259,7 +233,7 @@ int main() {
     compaction(&head);
     printMemory(head);
 
-    printf("\nmergeFreeBlocks TESTS BEGIN HERE\n");
+    printf("\n------------- mergeFreeBlocks TESTS BEGIN HERE -------------\n\n");
     printf("Empty list test:\n");
     head = NULL;
     printf("Before merge:\n");
@@ -349,5 +323,7 @@ int main() {
     freeLinkedList(&head);
     printf("\nIf freeLinkedList works, next print is empty:\n");
     printMemory(head);
+
+    printf("End of tests.\n");
     return 0;
 }
