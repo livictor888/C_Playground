@@ -8,7 +8,7 @@ char *append(char *data[], int count) {
         totalSize += strlen(data[i]);
     }
 
-    char *result  = (char *) malloc(totalSize + 1);
+    char *result  = (char *)malloc(totalSize + 1);
     if (*result == NULL) {
         perror("memory error");
         exit(1);

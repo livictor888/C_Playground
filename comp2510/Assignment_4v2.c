@@ -14,15 +14,17 @@ struct Node {
     struct Node *next;
 };
 
-typedef struct Node *Link;
+typedef struct Node *Link; // replace all "struct Node *" with "Link"
 
 Link createNode(bool isHole, int pid, int base, int limit) {
     Link link = (Link) malloc(sizeof(struct Node));
+//    struct Node *link = (Link) malloc(sizeof(struct Node));       //without Link typedef
     if (link == NULL) {
         perror("Failed to allocate memory.");
         exit(MEMORY_ALLOCATION_ERROR_CODE);
     }
-    link->isHole = isHole;
+    (*link).isHole = isHole;
+    //link->isHole = isHole;                // arrow notation
     link->pid = pid;
     link->base = base;
     link->limit = limit;
