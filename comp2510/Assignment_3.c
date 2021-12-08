@@ -68,7 +68,7 @@ void readFile(FILE *file) {
     int size = INITIAL_SIZE;
     struct Student currentStudent;
 
-    struct Student *arrayOfStudents = (struct Student *) malloc(size * sizeof(struct Student));
+    struct Student *arrayOfStudents = (struct Student *) malloc(size * sizeof(struct Student)); // starts as size 1
     if (arrayOfStudents == NULL) {
         perror("Failed to allocate memory.");
         exit(FAILED_TO_ALLOCATE_MEMORY_CODE);
