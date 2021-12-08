@@ -63,3 +63,5 @@ add_executable(quiz4 comp2510/Quiz_4.c)
 
 add_executable(reverse_string comp2510/Interview_Reverse_String.c)
 add_executable(optimize_code comp2510/Interview_Optimize_Code.c)
+
+add_executable(append comp2510/Extra_Append.c)
