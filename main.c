@@ -30,9 +30,22 @@ void printString(void *data) {
     printf("%c\n", character);
 }
 
+void mysteryFunction(int * firstPointer, int * secondPointer) {
+    int *temp = firstPointer;
+    firstPointer = secondPointer;
+    secondPointer = temp;
+    *temp = 3;
+}
+
+
 int main(int argc, char *argv[]) {
-    char * strings[] = {"hello", "world"};
-    printString(strings);
+
+    int first = 1, second = 2;
+    mysteryFunction(&first, &second);
+    printf("First: %d, Second: %d\n", first, second);
+
+//    char * strings[] = {"hello", "world"};
+//    printString(strings);
 
 ////    char *inputFileName = argv[1];
 ////    char *outputFileName = argv[2];
